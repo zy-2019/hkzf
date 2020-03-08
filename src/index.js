@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// antd-mobile样式文件
+
+import 'antd-mobile/dist/antd-mobile.css';
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
