@@ -9,4 +9,8 @@ export function getSwiper() {
     return axios.get('/home/swiper')
 }
 
-// 咨询请求
+// 栏目列表请求
+
+export function getColumn() {
+    return axios.get('')
+}
