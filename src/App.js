@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {BrowserRouter as Router, Route,Switch } from 'react-router-dom'
+import {BrowserRouter as Router, Route,Switch,Redirect } from 'react-router-dom'
 
 import Home from './pages/Home'
 import CityList from './pages/CityList'
@@ -14,6 +14,8 @@ function App() {
 
         <Router>
           <Switch>
+            {/* 重定向 */}
+             <Redirect exact from='/' to='/home'></Redirect>
             {/* 一级路由 */}
             {/* home 下配置二级路由 */}
             <Route path ='/home' component={Home}></Route>

@@ -23,7 +23,7 @@ class Home extends Component {
         return (
             <div>
                 {/* 二级路由配置 */}
-                <Route path ='/home/index' exact component={Index}></Route>
+                <Route path ='/home/index' component={Index}></Route>
                 <Route path ='/home/house' component={House}></Route>
                 <Route path ='/home/profile' component={Profile}></Route>
                 
