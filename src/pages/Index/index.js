@@ -3,24 +3,47 @@ import React, { Component } from 'react'
 //轮播图
 import { Carousel } from 'antd-mobile';
 
+import axios from  'axios'
+
 
 export class Index extends Component {
 
     
     state = {
-        data: ['1', '2', '3'],  //轮播图状态数据
+        data: [],  //轮播图状态数据
 
         //设置轮播图高度
         imgHeight: 176,
       }
-      componentDidMount() {
-        // simulate img loading
-        setTimeout(() => {
-          this.setState({
-            data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
-          });
-        }, 100);
-      }
+
+      //声命周期挂载阶段  相当于vue中的moutend
+    componentDidMount(){
+       
+        this.getSwiper()
+
+
+    }
+
+    //   获取轮播图数据
+    getSwiper= async ()=>{
+
+       const res = await axios.get('http://api-haoke-dev.itheima.net/home/swiper')
+        
+       console.log(res);
+       
+       const { status, body } = res.data
+       if (status === 200 ) {
+           this.setState({
+               data:body
+           })
+       }else{
+           alert('请求数据失败')
+       }
+       
+    }
+
+
+
       render() {
         return (
           <div>
@@ -36,12 +59,12 @@ export class Index extends Component {
             {/* 列表渲染 */}
               {this.state.data.map(val => (
                 <a
-                  key={val}
+                  key={val.id}
                   href="http://www.alipay.com"
                   style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                 >
                   <img
-                    src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                    src={`http://api-haoke-dev.itheima.net${val.imgSrc}`}
                     alt=""
                     style={{ width: '100%', verticalAlign: 'top' }}
                     onLoad={() => {
