@@ -4,6 +4,11 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+//引入字体图标
+
+import './assets/fonts/iconfont.css'
+
+
 // antd-mobile样式文件  不需要 已经按需加载
 
 

@@ -7,6 +7,8 @@ import Index from '../Index'
 import House from '../House'
 import Profile from '../Profile'
 
+import './index.css'
+
 import { TabBar } from 'antd-mobile';
 
 class Home extends Component {
@@ -14,8 +16,7 @@ class Home extends Component {
 
     //tab状态数据
     state = {
-        selectedTab: 'redTab',
-        fullScreen: true,
+        selectedTab: 'blueTab',
       };
    
     render() {
@@ -27,7 +28,7 @@ class Home extends Component {
                 <Route path ='/home/profile' component={Profile}></Route>
                 
                 {/* 全局导航 */}
-                <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
+                <div className='barBox'>
                     <TabBar
                     unselectedTintColor="#949494"
                     tintColor="#33A3F4"
@@ -36,19 +37,14 @@ class Home extends Component {
                         <TabBar.Item
                         title="首页"
                         key="Life"
-                        icon={<div style={{
-                        width: '22px',
-                        height: '22px',
-                        background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat' }}
-                        />
+                        icon={
+                            <i className="iconfont icon-ind"/>
                         }
                         //选中图标
-                        selectedIcon={<div style={{
-                        width: '22px',
-                        height: '22px',
-                        background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
-                        />
+                        selectedIcon={
+                            <i className="iconfont icon-ind"/>
                         }
+                        
                         selected={this.state.selectedTab === 'blueTab'}
                         badge={1}
 
