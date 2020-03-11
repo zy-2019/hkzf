@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 
-
+import { Toast } from 'antd-mobile'
 // 后台接口的基础地址
 const BASE_URL = 'http://api-haoke-dev.itheima.net';
 
@@ -14,7 +14,9 @@ const instance = axios.create({
   // 注册拦截器（request和response）
   
   // Add a request interceptor
-  instance.interceptors.request.use(function (config) {
+instance.interceptors.request.use(function (config) {
+    
+    Toast.loading('加载中...', 0)
     // Do something before request is sent
     return config;
   }, function (error) {
@@ -24,7 +26,7 @@ const instance = axios.create({
   
   // Add a response interceptor
   instance.interceptors.response.use(function (response) {
-
+    
     const data = {
         status:response.data.status,
         description:response.data.description,
@@ -32,10 +34,12 @@ const instance = axios.create({
     }
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
+    Toast.hide()
     return data;
   }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+ 
     return Promise.reject(error);
   });
   

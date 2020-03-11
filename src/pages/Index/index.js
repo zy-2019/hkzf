@@ -6,8 +6,9 @@ import React, { Component } from 'react'
 //轮播图组件
 import { Carousel } from 'antd-mobile';
 
-import axios,{BASE_URL} from  '../../utils/axios'
+import {BASE_URL} from  '../../utils/axios'
 
+import { getSwiper } from '../../utils/api/home/index'
 
 export class Index extends Component {
 
@@ -27,9 +28,9 @@ export class Index extends Component {
     }
 
     //   获取轮播图数据
-    getSwiper= async ()=>{
+    getSwiper = async ()=>{
 
-       const res = await axios.get('/home/swiper')
+       const res = await getSwiper()
         
        console.log(res);//简化后只返回三个数据
        
