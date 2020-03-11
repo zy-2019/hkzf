@@ -16,7 +16,13 @@ import './index.scss'
 //栏目导航文件
 import navs from '../../utils/lanmu'
 
-//导入图片
+//宫格布局
+import { Grid } from 'antd-mobile';
+
+
+const data1 = Array.from(new Array(4)).map(() => ({
+  icon: 'https://gw.alipayobjects.com/zos/rmsportal/WXoqXTHrSnRcUwEaQgXJ.png',
+}));
 
 export class Index extends Component {
 
@@ -91,6 +97,7 @@ export class Index extends Component {
         })
     }
     render() {
+
         return (
           <div>
             {/* 轮播图 */}
@@ -119,6 +126,22 @@ export class Index extends Component {
                 <span>更多</span>
                 </Flex>      
             </div>
+
+            {/* 宫格布局 */}
+            <Grid data={data1}
+              columnNum={2}
+              renderItem={item => (
+                  <div style={{ padding: '12.5px' }}>
+                      <Flex className="grid-item" justify="between">
+                    <div className="desc">
+                      <h3>{item.title}</h3>
+                      <p>{item.desc}</p>
+                    </div>
+                  <img src={`http://localhost:8080${item.imgSrc}`} alt="" />
+                </Flex>
+                </div>
+              )}
+            />
 
           </div>
         );
