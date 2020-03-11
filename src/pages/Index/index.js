@@ -1,6 +1,9 @@
+
+//默认首页
+
 import React, { Component } from 'react'
 
-//轮播图
+//轮播图组件
 import { Carousel } from 'antd-mobile';
 
 import axios,{BASE_URL} from  '../../utils/axios'
@@ -8,12 +11,11 @@ import axios,{BASE_URL} from  '../../utils/axios'
 
 export class Index extends Component {
 
-    
     state = {
         data: [],  //轮播图状态数据
 
-        //设置轮播图高度
-        imgHeight: 176,
+        //设置轮播图高度  默认占位
+        imgHeight: 212,
       }
 
       //声命周期挂载阶段  相当于vue中的moutend
@@ -29,20 +31,18 @@ export class Index extends Component {
 
        const res = await axios.get('/home/swiper')
         
-       console.log(res);
+       console.log(res);//简化后只返回三个数据
        
-       const { status, body } = res.data
+       const { status, data } = res
        if (status === 200 ) {
            this.setState({
-               data:body
+               data:data
            })
        }else{
            alert('请求数据失败')
        }
        
     }
-
-
 
       render() {
         return (

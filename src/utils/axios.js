@@ -8,7 +8,7 @@ const BASE_URL = 'http://api-haoke-dev.itheima.net';
 // 创建axios的实例
 const instance = axios.create({
     baseURL: BASE_URL
-  });
+});
   
 
   // 注册拦截器（request和response）
@@ -24,9 +24,15 @@ const instance = axios.create({
   
   // Add a response interceptor
   instance.interceptors.response.use(function (response) {
+
+    const data = {
+        status:response.data.status,
+        description:response.data.description,
+        data:response.data.body
+    }
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    return response;
+    return data;
   }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
