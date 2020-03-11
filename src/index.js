@@ -4,9 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-// antd-mobile样式文件
+// antd-mobile样式文件  不需要 已经按需加载
 
-import 'antd-mobile/dist/antd-mobile.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
