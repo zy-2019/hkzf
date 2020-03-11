@@ -9,10 +9,44 @@ import Profile from '../Profile'
 
 import './index.css'
 
+//引入tabbar 数据
+import tabItems from '../../utils/tabBar-item'
+
 import { TabBar } from 'antd-mobile';
+
+
+
 
 class Home extends Component {
 
+    //提取出来
+    redderTabItems=()=>{
+        return tabItems.map((item)=>{
+            return (
+                <TabBar.Item
+                    title={item.title}  
+                    key={item.title}
+                    icon={
+                        <i className={`iconfont ${item.icon}`}/>
+                    }
+                    //选中图标
+                    selectedIcon={
+                        <i className={`iconfont ${item.icon}`}/>
+                    }
+                    
+                    selected={this.state.selectedTab === item.path}
+                    //选中状态
+                    onPress={() => {
+                    this.props.history.push(item.path)
+                    this.setState({
+                        selectedTab: item.path,
+                    });
+                    }}
+                >
+                </TabBar.Item>
+            )
+        })
+    }
 
     //tab状态数据
     state = {
@@ -21,7 +55,9 @@ class Home extends Component {
    
     render() {
         return (
+            
             <div>
+
                 {/* 二级路由配置 */}
                 <Route path ='/home/index' component={Index}></Route>
                 <Route path ='/home/house' component={House}></Route>
@@ -29,82 +65,19 @@ class Home extends Component {
                 
                 {/* 全局导航 */}
                 <div className='barBox'>
+
+                    {/* tabBar组件 */}
                     <TabBar
                     unselectedTintColor="#949494"
                     tintColor="#33A3F4"
                     barTintColor="white"
                     >
-                        <TabBar.Item
-                        title="首页"
-                        key="Life"
-                        icon={
-                            <i className="iconfont icon-ind"/>
-                        }
-                        //选中图标
-                        selectedIcon={
-                            <i className="iconfont icon-ind"/>
+
+                        {   
+                           //调用
+                            this.redderTabItems()
                         }
                         
-                        selected={this.state.selectedTab === '/home/index'}
-                        //选中状态
-                        onPress={() => {
-                        this.props.history.push('/home/index')
-                        this.setState({
-                            selectedTab: '/home/index',
-                        });
-                        }}
-                        data-seed="logId"
-                    >
-                        </TabBar.Item>
-
-
-                        <TabBar.Item
-                        title="首页"
-                        key="Life"
-                        icon={
-                            <i className="iconfont icon-findHouse"/>
-                        }
-                        //选中图标
-                        selectedIcon={
-                            <i className="iconfont icon-findHouse"/>
-                        }
-                        
-                        selected={this.state.selectedTab === '/home/house'}
-
-                        //选中状态
-                        onPress={() => {
-                        this.props.history.push('/home/house')
-                        this.setState({
-                            selectedTab: '/home/house',
-                        });
-                        }}
-                        data-seed="logId"
-                    >
-                        </TabBar.Item>
-
-                        <TabBar.Item
-                        title="首页"
-                        key="Life"
-                        icon={
-                            <i className="iconfont icon-my"/>
-                        }
-                        //选中图标
-                        selectedIcon={
-                            <i className="iconfont icon-my"/>
-                        }
-                        
-                        selected={this.state.selectedTab === '/home/profile'}
-                        
-                        //选中状态
-                        onPress={() => {
-                        this.props.history.push('/home/profile')
-                        this.setState({
-                            selectedTab: '/home/profile',
-                        });
-                        }}
-                        data-seed="logId"
-                    >
-                        </TabBar.Item>
                     </TabBar>
                 </div>
 
