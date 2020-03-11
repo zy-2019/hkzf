@@ -17,6 +17,8 @@ export class Index extends Component {
 
         //设置轮播图高度  默认占位
         imgHeight: 212,
+
+        autoplay:false  //数据回来前是false
       }
 
       //声命周期挂载阶段  相当于vue中的moutend
@@ -37,7 +39,13 @@ export class Index extends Component {
        const { status, data } = res
        if (status === 200 ) {
            this.setState({
-               data:data
+               data:data,
+               
+           },()=>{
+               //有数据后在设置自动播放
+               this.setState({
+                   autoplay:true 
+               })
            })
        }else{
            alert('请求数据失败')
@@ -45,16 +53,12 @@ export class Index extends Component {
        
     }
 
-      render() {
+    render() {
         return (
           <div>
             <Carousel
-
               autoplay={true}
-
               infinite //无限  相当于无缝轮播
-            //   beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-            //   afterChange={index => console.log('slide to', index)}
             >   
 
             {/* 列表渲染 */}
