@@ -9,8 +9,12 @@ export function getSwiper() {
     return axios.get('/home/swiper')
 }
 
-// 栏目列表请求
+// 租房小组请求
 
-export function getColumn() {
-    return axios.get('')
+export function getHouseGroups(area='AREA%7C88cff55c-aaa4-e2e0') {
+    return axios.get('/home/groups',{
+        params:{
+            area
+        }
+    })
 }

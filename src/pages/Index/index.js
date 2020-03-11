@@ -8,7 +8,7 @@ import { Carousel,Flex } from 'antd-mobile';
 
 import {BASE_URL} from  '../../utils/axios'
 
-import { getSwiper } from '../../utils/api/home/index'
+import { getSwiper,getHouseGroups } from '../../utils/api/home/index'
 
 //导入首页样式
 import './index.scss'
@@ -20,10 +20,6 @@ import navs from '../../utils/lanmu'
 import { Grid } from 'antd-mobile';
 
 
-const data1 = Array.from(new Array(4)).map(() => ({
-  icon: 'https://gw.alipayobjects.com/zos/rmsportal/WXoqXTHrSnRcUwEaQgXJ.png',
-}));
-
 export class Index extends Component {
 
     state = {
@@ -34,13 +30,14 @@ export class Index extends Component {
 
         autoplay:false,  //数据回来前是false
 
-        list:[] //栏目导航数据列表
+        Grid:[] //宫格数据
       }
 
       //声命周期挂载阶段  相当于vue中的moutend
     componentDidMount(){
        
         this.getSwiper()
+        this.getHouseGroups()
     }
 
     //   获取轮播图数据
@@ -65,7 +62,6 @@ export class Index extends Component {
        }
     }
     //轮播图渲染列表
-
     readerSwiper = ()=>{
         return this.state.data.map(val => (
             <a
@@ -96,6 +92,24 @@ export class Index extends Component {
                  </Flex.Item>
         })
     }
+
+
+    //获取租房小组数据
+    getHouseGroups = async()=>{
+      const res = await getHouseGroups()
+      console.log(res);
+
+      const { status, data } = res
+      if (status === 200 ) {
+          this.setState({
+            Grid:data,
+          })
+      }else{
+          alert('请求数据失败')
+      }
+    }
+
+   
     render() {
 
         return (
@@ -128,21 +142,23 @@ export class Index extends Component {
             </div>
 
             {/* 宫格布局 */}
-            <Grid data={data1}
+            <Grid 
+              data={this.state.Grid}
+              square={false}
+              hasLine={false}
               columnNum={2}
               renderItem={item => (
-                  <div style={{ padding: '12.5px' }}>
-                      <Flex className="grid-item" justify="between">
+                <Flex className="grid-item" justify="between">
                     <div className="desc">
                       <h3>{item.title}</h3>
                       <p>{item.desc}</p>
                     </div>
-                  <img src={`http://localhost:8080${item.imgSrc}`} alt="" />
+                  <img src={`${BASE_URL}${item.imgSrc}`} alt="" />
                 </Flex>
-                </div>
-              )}
+            )}
             />
 
+            
           </div>
         );
       }
