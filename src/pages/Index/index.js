@@ -11,7 +11,7 @@ import {BASE_URL} from  '../../utils/axios'
 import { getSwiper } from '../../utils/api/home/index'
 
 //导入首页样式
-import './index.css'
+import './index.scss'
 
 //栏目导航文件
 import navs from '../../utils/lanmu'
@@ -85,12 +85,11 @@ export class Index extends Component {
     getNavs = ()=>{
         return  navs.map((item)=>{
             return <Flex.Item onClick={() => console.log(1)} key={item.id}>
-                     <img src={item.img} />
+                     <img alt='' src={item.img} />
                      <p>{item.title}</p>
                  </Flex.Item>
         })
     }
-
     render() {
         return (
           <div>
@@ -112,6 +111,15 @@ export class Index extends Component {
                   this.getNavs()
                }
             </Flex>
+
+            {/* 租房小组 */}
+            <div className="group">
+                <Flex className="group-title" justify="between">
+                <h3>租房小组</h3>
+                <span>更多</span>
+                </Flex>      
+            </div>
+
           </div>
         );
       }
