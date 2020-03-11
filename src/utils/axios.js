@@ -6,15 +6,15 @@ import axios from 'axios'
 const BASE_URL = 'http://api-haoke-dev.itheima.net';
 
 // 创建axios的实例
-const axios = axios.create({
+const instance = axios.create({
     baseURL: BASE_URL
-});
+  });
   
 
   // 注册拦截器（request和response）
   
   // Add a request interceptor
-  axios.interceptors.request.use(function (config) {
+  instance.interceptors.request.use(function (config) {
     // Do something before request is sent
     return config;
   }, function (error) {
@@ -23,7 +23,7 @@ const axios = axios.create({
   });
   
   // Add a response interceptor
-  axios.interceptors.response.use(function (response) {
+  instance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
@@ -34,4 +34,4 @@ const axios = axios.create({
   });
   
   export { BASE_URL }
-  export default axios
+  export default instance
