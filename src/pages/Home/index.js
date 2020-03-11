@@ -16,14 +16,14 @@ class Home extends Component {
 
     //tab状态数据
     state = {
-        selectedTab: 'blueTab',
+        selectedTab: this.props.location.pathname  //把selectedTab默认值改为当前url参数
       };
    
     render() {
         return (
             <div>
                 {/* 二级路由配置 */}
-                <Route path ='/home/index' component={Index}></Route>
+                <Route path ='/home/index' exact component={Index}></Route>
                 <Route path ='/home/house' component={House}></Route>
                 <Route path ='/home/profile' component={Profile}></Route>
                 
@@ -45,13 +45,61 @@ class Home extends Component {
                             <i className="iconfont icon-ind"/>
                         }
                         
-                        selected={this.state.selectedTab === 'blueTab'}
-                        badge={1}
+                        selected={this.state.selectedTab === '/home/index'}
+                        //选中状态
+                        onPress={() => {
+                        this.props.history.push('/home/index')
+                        this.setState({
+                            selectedTab: '/home/index',
+                        });
+                        }}
+                        data-seed="logId"
+                    >
+                        </TabBar.Item>
+
+
+                        <TabBar.Item
+                        title="首页"
+                        key="Life"
+                        icon={
+                            <i className="iconfont icon-findHouse"/>
+                        }
+                        //选中图标
+                        selectedIcon={
+                            <i className="iconfont icon-findHouse"/>
+                        }
+                        
+                        selected={this.state.selectedTab === '/home/house'}
 
                         //选中状态
                         onPress={() => {
+                        this.props.history.push('/home/house')
                         this.setState({
-                            selectedTab: 'blueTab',
+                            selectedTab: '/home/house',
+                        });
+                        }}
+                        data-seed="logId"
+                    >
+                        </TabBar.Item>
+
+                        <TabBar.Item
+                        title="首页"
+                        key="Life"
+                        icon={
+                            <i className="iconfont icon-my"/>
+                        }
+                        //选中图标
+                        selectedIcon={
+                            <i className="iconfont icon-my"/>
+                        }
+                        
+                        selected={this.state.selectedTab === '/home/profile'}
+                        
+                        //选中状态
+                        onPress={() => {
+                        this.props.history.push('/home/profile')
+                        this.setState({
+                            selectedTab: '/home/profile',
                         });
                         }}
                         data-seed="logId"
