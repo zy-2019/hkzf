@@ -4,11 +4,14 @@
 import React, { Component } from 'react'
 
 //轮播图组件
-import { Carousel,Flex,WingBlank,SearchBar } from 'antd-mobile';
+import { Carousel,Flex,WingBlank,SearchBar, Result } from 'antd-mobile';
 
 import {BASE_URL} from  '../../utils/axios'
 
 import { getSwiper,getHouseGroups,getNews } from '../../utils/api/home/index'
+
+import { getCityInfo } from '../../utils/api/city'
+
 
 //导入首页样式
 import './index.scss'
@@ -24,7 +27,10 @@ export class Index extends Component {
 
     state = {
 
-        
+        currCity: {
+          label: '',
+          value: ''
+        },
 
         data: [],  //轮播图状态数据
 
@@ -42,13 +48,34 @@ export class Index extends Component {
 
       //声命周期挂载阶段  相当于vue中的moutend
     componentDidMount(){
-       
         // this.getSwiper()
         // this.getHouseGroups()
         // this.getNews()
-
         this.getAllData()
+
+        this.getCurrCity()
     }
+    
+    //获取当前定位城市信息
+    getCurrCity = ()=>{
+
+      const myCity = new window.BMap.LocalCity();
+
+      myCity.get(async(Result)=>{
+        let res = await getCityInfo(Result.name);
+
+        console.log(res);
+
+        if (res.status === 200) {
+          this.setState({
+            currCity: res.data
+          })
+        }
+      })
+
+
+    }
+
 
     //promise.all优化重构 处理首页所有接口调用
 
@@ -139,7 +166,7 @@ export class Index extends Component {
         <Flex justify="around" className="topNav">
           <div className="searchBox">
             <div className="city" onClick={()=>push('/cityList')}>
-              北京<i className="iconfont icon-arrow" />
+              {this.state.currCity.label}<i className="iconfont icon-arrow" />
             </div>
             <SearchBar
               value={this.state.keyword}

@@ -8,6 +8,7 @@ import { NavBar, Icon} from 'antd-mobile';
 
 import './index.scss'
 
+
 export default class Map extends Component {
 
 
@@ -21,9 +22,8 @@ export default class Map extends Component {
         const { BMap } = window;
         const map = new BMap.Map("container");
         var point = new BMap.Point(116.404, 39.915);
-        map.centerAndZoom(point, 15);
+        map.centerAndZoom(point, 15);    
     }
-
     render() {
         return (
             <div>   
