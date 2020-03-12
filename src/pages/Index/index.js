@@ -4,7 +4,7 @@
 import React, { Component } from 'react'
 
 //轮播图组件
-import { Carousel,Flex,WingBlank } from 'antd-mobile';
+import { Carousel,Flex,WingBlank,SearchBar } from 'antd-mobile';
 
 import {BASE_URL} from  '../../utils/axios'
 
@@ -23,12 +23,17 @@ import { Grid } from 'antd-mobile';
 export class Index extends Component {
 
     state = {
+
+        
+
         data: [],  //轮播图状态数据
 
         //设置轮播图高度  默认占位
         imgHeight: 212,
 
-        autoplay:false,  //数据回来前是false
+        keyword:'', //顶部搜索关键字
+
+        autoplay:false,  //数据回来前是不能自动播放设置为false
 
         Grid:[], //宫格数据
 
@@ -127,10 +132,38 @@ export class Index extends Component {
       ))
     }
 
+    // 渲染顶部导航
+    renderTopNav = () => {
+      const { push } = this.props.history
+      return (
+        <Flex justify="around" className="topNav">
+          <div className="searchBox">
+            <div className="city" onClick={()=>push('/cityList')}>
+              北京<i className="iconfont icon-arrow" />
+            </div>
+            <SearchBar
+              value={this.state.keyword}
+              onChange={(v) => this.setState({ keyword: v })}
+              placeholder="请输入小区或地址"
+            />
+          </div>
+          <div className="map" onClick={()=>push('/map')}>
+            <i key="0" className="iconfont icon-map" />
+          </div>
+        </Flex>
+      )
+    }
+
     //render 渲染dom树
     render() {
         return (
           <div>
+
+            {/* 顶部导航 */}
+            {
+              this.renderTopNav()
+            }
+
             {/* 轮播图 */}
             <Carousel
               autoplay={true}
@@ -177,7 +210,7 @@ export class Index extends Component {
 
             {/* 首页最新资讯 */}
             {/* 最新资讯 */}
-              <div className="news">
+            <div className="news">
                 <h3 className="group-title">最新资讯</h3>
                 <WingBlank size="md">
                 {
@@ -187,7 +220,7 @@ export class Index extends Component {
                 </WingBlank>
               </div> 
 
-            
+          
           </div>
         );
       }

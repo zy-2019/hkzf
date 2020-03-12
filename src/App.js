@@ -16,6 +16,8 @@ function App() {
           <Switch>
             {/* 重定向 */}
              <Redirect exact from='/' to='/home'></Redirect>
+             <Redirect exact from='/home' to='/home/index'></Redirect>
+
             {/* 一级路由 */}
             {/* home 下配置二级路由 */}
             <Route path ='/home' component={Home}></Route>
