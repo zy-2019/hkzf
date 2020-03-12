@@ -220,7 +220,6 @@ export class Index extends Component {
                 </WingBlank>
               </div> 
 
-          
           </div>
         );
       }
