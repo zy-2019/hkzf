@@ -27,7 +27,7 @@ ul,li {
     height: 100%;
     }
      /* Map组件样式 */
-    .mapBox,#container {
+    .mapBox {
     height: 100%;
     }
 
