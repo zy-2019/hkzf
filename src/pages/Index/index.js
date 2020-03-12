@@ -38,32 +38,41 @@ export class Index extends Component {
       //声命周期挂载阶段  相当于vue中的moutend
     componentDidMount(){
        
-        this.getSwiper()
-        this.getHouseGroups()
-        this.getNews()
+        // this.getSwiper()
+        // this.getHouseGroups()
+        // this.getNews()
+
+        this.getAllData()
     }
 
-    //   获取轮播图数据
-    getSwiper = async ()=>{
+    //promise.all优化重构 处理首页所有接口调用
 
-       const res = await getSwiper()
-        
-       console.log(res);//简化后只返回三个数据
-       
-       const { status, data } = res
-       if (status === 200 ) {
-           this.setState({
-               data:data,
-           },()=>{
-               //有数据后在设置自动播放
-               this.setState({
-                   autoplay:true 
-               })
-           })
-       }else{
-           alert('请求数据失败')
-       }
+    getAllData = async ()=>{
+
+      //获取轮播图数据
+
+      //获取租房小组数据
+
+      //获取首页资讯列表数据
+      const res = await Promise.all([getSwiper(),getHouseGroups(),getNews()])
+
+      console.log('首页所有接口数据' , res);
+      
+      if (res[0].status === 200) {
+        this.setState({
+          data:res[0].data,
+          Grid:res[1].data,
+          News:res[2].data
+        },()=>{
+          //有数据后在设置自动播放
+          this.setState({
+            autoplay:true 
+          })
+        })
+      }
     }
+
+    
     //轮播图渲染列表
     readerSwiper = ()=>{
         return this.state.data.map(val => (
@@ -96,37 +105,6 @@ export class Index extends Component {
         })
     }
 
-
-    //获取租房小组数据
-    getHouseGroups = async()=>{
-      const res = await getHouseGroups()
-      console.log(res);
-
-      const { status, data } = res
-      if (status === 200 ) {
-          this.setState({
-            Grid:data,
-          })
-      }else{
-          alert('请求数据失败')
-      }
-    }
-
-    //获取首页资讯列表数据
-
-    getNews= async ()=>{
-      const res = await getNews()
-      console.log(res);
-      const { status, data } = res
-      if (status === 200 ) {
-          this.setState({
-            News:data,
-          })
-      }else{
-          alert('请求数据失败')
-      }
-      
-    }
     //渲染新闻列表的方法
     renderNews = ()=>{  
       return this.state.News.map(item => (
